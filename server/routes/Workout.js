@@ -9,7 +9,7 @@ router.get("/:userID", async (req, res) => {
             "SELECT * FROM \"workout\" where user_id = $1",
             [userIDReq]
         )
-        res.json(workouts)
+        res.json(workouts.rows)
 
     } catch (err) {
         console.log(err.message)
@@ -24,7 +24,7 @@ router.get("/:userID/:workoutID", async (req, res) => {
             "SELECT * FROM \"workout\" where user_id = $1 and workout_id = $2",
             [userIDReq, workoutIDReq]
         )
-        res.json(workout)
+        res.json(workout.rows[0])
 
     } catch (err) {
         console.log(err.message)
@@ -32,17 +32,15 @@ router.get("/:userID/:workoutID", async (req, res) => {
 })
 
 router.post("/:userID/", async (req, res) => {
-    let newWorkoutObject = { //make sure to stringify the object before passing
-        workout: []
-    }
     try {
         let userIDReq = req.params.userID
-        let newWorkoutReq = req.body.newWorkout //make sure to stringify the object before passing
+        let newWorkoutReq = req.body.newWorkout
+        console.log(newWorkoutReq)
         const newWorkout = await pool.query(
             "INSERT INTO \"workout\" (user_id, workout_details) VALUES ($1, $2) returning *",
             [userIDReq, newWorkoutReq]
         )
-        res.json(newWorkout)
+        res.json(newWorkout.rows[0])
 
     } catch (err) {
         console.log(err.message)
@@ -50,17 +48,15 @@ router.post("/:userID/", async (req, res) => {
 })
 
 router.put("/:userID/:workoutID", async (req, res) => {
-    let updatedWorkoutObject = { //make sure to stringify the object before passing
-        workout: []
-    }
     try {
         let workoutIDReq = req.params.workoutID
-        let updatedWorkoutReq = req.body.updatedWorkout //make sure to stringify the object before passing
+        let updatedWorkoutReq = req.body.updatedWorkout
+        console.log(updatedWorkoutReq)
         const updatedWorkout = await pool.query(
-            "UPDATE \"workout\" SET (workout_details) = ($1) WHERE workout_id = $2 returning *",
+            "UPDATE \"workout\" SET workout_details = $1 WHERE workout_id = $2 returning *",
             [updatedWorkoutReq, workoutIDReq]
         )
-        res.json(updatedWorkout)
+        res.json(updatedWorkout.rows[0])
 
     } catch (err) {
         console.log(err.message)
@@ -72,10 +68,10 @@ router.delete("/:userID/:workoutID", async (req, res) => {
         let userIDReq = req.params.userID
         let workoutIDReq = req.params.workoutID
         const workouts = await pool.query(
-            "DELETE FROM \"workout\" where user_id = $1 and workout_id = $2",
+            "DELETE FROM \"workout\" where user_id = $1 and workout_id = $2 returning *",
             [userIDReq, workoutIDReq]
         )
-        res.json(workouts)
+        res.json(workouts.rows[0])
 
     } catch (err) {
         console.log(err.message)

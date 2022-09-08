@@ -2,18 +2,16 @@ const express = require("express")
 const router = express.Router()
 const pool = require('../database/database.js')
 
-router.get("/:id", async (req, res) => {
-    let loginObject = {
-        email: "",
-        password: ""
-    }
+router.get("/:login", async (req, res) => {
     try {
-        let loginReq = req.body.login
+        let loginReq = req.params.login
+        loginReq = JSON.parse(decodeURIComponent(loginReq))
+        
         const user = await pool.query(
             "SELECT * FROM \"user\" where email = $1 and password = $2",
             [loginReq.email, loginReq.password]
         )
-        res.json(user)
+        res.json(user.rows[0])
 
     } catch (err) {
         console.log(err.message)
@@ -21,13 +19,6 @@ router.get("/:id", async (req, res) => {
 })
 
 router.post("/", async (req, res) => {
-    let newUserObject = {
-        firstName: "Yo",
-        lastName: "Mama",
-        email: "yomama@gmail.com",
-        username: "yomama",
-        password: "password"
-    } 
     try {
         let newUserReq = req.body.newUser
         const newUser = await pool.query(
@@ -42,20 +33,14 @@ router.post("/", async (req, res) => {
 })
 
 router.put("/:id", async (req, res) => {
-    let updatedUserObject = {
-        firstName: "Yo",
-        lastName: "Mama",
-        email: "yomama@gmail.com",
-        username: "yomama",
-        password: "password"
-    } 
     try {
         let updatedUserReq = req.body.updatedUser
+        let userID = req.params.id
         const updatedUser = await pool.query(
-            "UPDATE \"user\" (first_name, last_name, email, username, password) = ($1, $2, $3, $4, $5) returning *",
-            [updatedUserReq.firstName, updatedUserReq.lastName, updatedUserReq.email, updatedUserReq.username, updatedUserReq.password]
+            "UPDATE \"user\" SET (first_name, last_name, email, username, password) = ($1, $2, $3, $4, $5) where user_id = $6 returning *",
+            [updatedUserReq.firstName, updatedUserReq.lastName, updatedUserReq.email, updatedUserReq.username, updatedUserReq.password, userID]
         )
-        res.json(updatedUser)
+        res.json(updatedUser.rows[0])
 
     } catch (err) {
         console.log(err.message)
@@ -69,7 +54,7 @@ router.delete("/:id", async (req, res) => {
             "DELETE FROM \"user\" WHERE user_id = $1 returning *",
             [deleteIDReq]
         )
-        res.json(deletedUser)
+        res.json(deletedUser.rows[0])
 
     } catch (err) {
         console.log(err.message)
