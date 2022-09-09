@@ -4,17 +4,19 @@ const pool = require('../database/database.js')
 
 router.get("/:login", async (req, res) => {
     try {
-        let loginReq = req.params.login
-        loginReq = JSON.parse(decodeURIComponent(loginReq))
-        
+        let loginReq = JSON.parse(decodeURIComponent(req.params.login))
         const user = await pool.query(
             "SELECT * FROM \"user\" where email = $1 and password = $2",
             [loginReq.email, loginReq.password]
         )
-        res.json(user.rows[0])
-
+        
+        if(user.rows.length) {
+            res.json(user.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 
@@ -25,10 +27,14 @@ router.post("/", async (req, res) => {
             "INSERT INTO \"user\" (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) returning *",
             [newUserReq.firstName, newUserReq.lastName, newUserReq.email, newUserReq.username, newUserReq.password]
         )
-        res.json(newUser.rows[0])
+        if(newUser.rows.length) {
+            res.json(newUser.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 
@@ -40,10 +46,15 @@ router.put("/:id", async (req, res) => {
             "UPDATE \"user\" SET (first_name, last_name, email, username, password) = ($1, $2, $3, $4, $5) where user_id = $6 returning *",
             [updatedUserReq.firstName, updatedUserReq.lastName, updatedUserReq.email, updatedUserReq.username, updatedUserReq.password, userID]
         )
-        res.json(updatedUser.rows[0])
+
+        if(updatedUser.rows.length) {
+            res.json(updatedUser.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 
@@ -54,10 +65,15 @@ router.delete("/:id", async (req, res) => {
             "DELETE FROM \"user\" WHERE user_id = $1 returning *",
             [deleteIDReq]
         )
-        res.json(deletedUser.rows[0])
+
+        if(deletedUser.rows.length) {
+            res.json(deletedUser.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 

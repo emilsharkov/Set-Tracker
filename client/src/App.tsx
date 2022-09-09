@@ -6,7 +6,7 @@ import RestApiTest from './components/RestApiTest';
 function App() {
   return (
     <>
-      <RestApiTest/>
+      <LoginModal/>
     </>
   );
 }

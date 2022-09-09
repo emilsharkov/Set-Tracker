@@ -1,12 +1,7 @@
-import { Login } from "../interfaces/Login"
-import { User } from "../interfaces/User"
+import { Login } from "../Objects/Login"
+import { User } from "../Objects/User"
 
-async function login(): Promise<{data: string} | undefined> {
-    let login: Login = {
-        email: "yomama@gmail.com",
-        password: "password"
-    }
-
+async function login(login: Login): Promise<{data: string} | undefined> {
     try {
         const response = await fetch("http://localhost:5000/user/" + encodeURIComponent(JSON.stringify(login)), {
           method: "GET",
@@ -22,15 +17,7 @@ async function login(): Promise<{data: string} | undefined> {
     }
 } 
 
-async function createAccount(): Promise<{data: string} | undefined> {
-  let newUser: User = {
-    firstName: "Yo",
-    lastName: "Mama",
-    email: "yomama@gmail.com",
-    username: "yomama",
-    password: "password"
-  }
-
+async function createAccount(newUser: User): Promise<{data: string} | undefined> {
   try {
       const response = await fetch("http://localhost:5000/user/", {
         method: "POST",
@@ -47,16 +34,7 @@ async function createAccount(): Promise<{data: string} | undefined> {
   }
 }
 
-async function updateAccount(): Promise<{data: string} | undefined> {
-  let userID = 2
-  let updatedUser: User = {
-    firstName: "Yo1",
-    lastName: "Mama1",
-    email: "yomama1@gmail.com",
-    username: "yomama1",
-    password: "password1"
-  }
-
+async function updateAccount(userID: number, updatedUser: User): Promise<{data: string} | undefined> {
   try {
       const response = await fetch("http://localhost:5000/user/" + userID, {
         method: "PUT",
@@ -73,9 +51,7 @@ async function updateAccount(): Promise<{data: string} | undefined> {
   }
 }
 
-async function deleteAccount(): Promise<{data: string} | undefined>{ 
-  let userID = 2
-
+async function deleteAccount(userID: number): Promise<{data: string} | undefined>{ 
   try {
       const response = await fetch("http://localhost:5000/user/" + userID, {
         method: "DELETE",

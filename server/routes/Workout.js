@@ -9,10 +9,15 @@ router.get("/:userID", async (req, res) => {
             "SELECT * FROM \"workout\" where user_id = $1",
             [userIDReq]
         )
-        res.json(workouts.rows)
+
+        if(workouts.rows.length) {
+            res.json(workouts.rows)
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 
@@ -24,10 +29,15 @@ router.get("/:userID/:workoutID", async (req, res) => {
             "SELECT * FROM \"workout\" where user_id = $1 and workout_id = $2",
             [userIDReq, workoutIDReq]
         )
-        res.json(workout.rows[0])
+
+        if(workout.rows.length) {
+            res.json(workout.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 
@@ -35,15 +45,19 @@ router.post("/:userID/", async (req, res) => {
     try {
         let userIDReq = req.params.userID
         let newWorkoutReq = req.body.newWorkout
-        console.log(newWorkoutReq)
         const newWorkout = await pool.query(
             "INSERT INTO \"workout\" (user_id, workout_details) VALUES ($1, $2) returning *",
             [userIDReq, newWorkoutReq]
         )
-        res.json(newWorkout.rows[0])
+        
+        if(newWorkout.rows.length) {
+            res.json(newWorkout.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 
@@ -56,10 +70,15 @@ router.put("/:userID/:workoutID", async (req, res) => {
             "UPDATE \"workout\" SET workout_details = $1 WHERE workout_id = $2 returning *",
             [updatedWorkoutReq, workoutIDReq]
         )
-        res.json(updatedWorkout.rows[0])
+        
+        if(updatedWorkout.rows.length) {
+            res.json(updatedWorkout.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 
@@ -67,14 +86,19 @@ router.delete("/:userID/:workoutID", async (req, res) => {
     try {
         let userIDReq = req.params.userID
         let workoutIDReq = req.params.workoutID
-        const workouts = await pool.query(
+        const deletedWorkout = await pool.query(
             "DELETE FROM \"workout\" where user_id = $1 and workout_id = $2 returning *",
             [userIDReq, workoutIDReq]
         )
-        res.json(workouts.rows[0])
+        
+        if(deletedWorkout.rows.length) {
+            res.json(deletedWorkout.rows[0])
+        } else {
+            throw new Error('User Not Found')
+        }
 
     } catch (err) {
-        console.log(err.message)
+        res.json(err.message)
     }
 })
 

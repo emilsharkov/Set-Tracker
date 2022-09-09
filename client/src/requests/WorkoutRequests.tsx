@@ -1,4 +1,4 @@
-import { Workout } from "../interfaces/Workout"
+import { Workout } from "../Objects/Workout"
 
 async function getAllWorkouts(): Promise<{data: string} | undefined> {
     let userID = 1;
