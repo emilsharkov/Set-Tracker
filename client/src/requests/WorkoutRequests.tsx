@@ -39,6 +39,7 @@ async function getWorkout(): Promise<{data: string} | undefined> {
 async function addWorkout(): Promise<{data: string} | undefined> {
     let userID = 1;
     let newWorkout: Workout = {
+        workoutID: 0,
         exercises: []
     }
     
@@ -62,6 +63,7 @@ async function editWorkout(): Promise<{data: string} | undefined> {
     let userID = 1;
     let workoutID = 6;
     let updatedWorkout: Workout = {
+        workoutID: 0,
         exercises: [{name:"lat pulldown", sets: [ { weight:195, reps:8} ] }]
     }
     try {
