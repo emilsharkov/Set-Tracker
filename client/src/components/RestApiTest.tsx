@@ -8,7 +8,7 @@ const RestApiTest = () => {
   const [userID, setUserID] = useState("")
 
   async function testFetch(){
-    const promise = await getAllWorkouts()
+    const promise = await getAllWorkouts(0)
     setText(promise!.data)
   } 
 

@@ -1,8 +1,6 @@
 import { Workout } from "../Objects/Workout"
 
-async function getAllWorkouts(): Promise<{data: string} | undefined> {
-    let userID = 1;
-    
+async function getAllWorkouts(userID: number): Promise<{data: string} | undefined> {    
     try {
         const response = await fetch("http://localhost:5000/workout/" + userID, {
           method: "GET",
@@ -18,9 +16,7 @@ async function getAllWorkouts(): Promise<{data: string} | undefined> {
     }
 } 
 
-async function getWorkout(): Promise<{data: string} | undefined> {
-    let userID = 1;
-    let workoutID = 6;
+async function getWorkout(userID: number, workoutID: number): Promise<{data: string} | undefined> {
     try {
         const response = await fetch("http://localhost:5000/workout/" + userID + "/" + workoutID, {
           method: "GET",
@@ -36,13 +32,7 @@ async function getWorkout(): Promise<{data: string} | undefined> {
     }
 } 
 
-async function addWorkout(): Promise<{data: string} | undefined> {
-    let userID = 1;
-    let newWorkout: Workout = {
-        workoutID: 0,
-        exercises: []
-    }
-    
+async function addWorkout(userID: number, newWorkout: Workout): Promise<{data: string} | undefined> {
     try {
         const response = await fetch("http://localhost:5000/workout/" + userID, {
           method: "POST",
@@ -59,13 +49,7 @@ async function addWorkout(): Promise<{data: string} | undefined> {
     }
 }
 
-async function editWorkout(): Promise<{data: string} | undefined> {
-    let userID = 1;
-    let workoutID = 6;
-    let updatedWorkout: Workout = {
-        workoutID: 0,
-        exercises: [{name:"lat pulldown", sets: [ { weight:195, reps:8} ] }]
-    }
+async function editWorkout(userID: number, workoutID: number, updatedWorkout: Workout): Promise<{data: string} | undefined> {
     try {
         const response = await fetch("http://localhost:5000/workout/" + userID + "/" + workoutID, {
           method: "PUT",
@@ -82,9 +66,7 @@ async function editWorkout(): Promise<{data: string} | undefined> {
     }
 } 
 
-async function deleteWorkout(): Promise<{data: string} | undefined> {
-    let userID = 1;
-    let workoutID = 6;
+async function deleteWorkout(userID: number, workoutID: number): Promise<{data: string} | undefined> {
     try {
         const response = await fetch("http://localhost:5000/workout/" + userID + "/" + workoutID, {
           method: "DELETE",

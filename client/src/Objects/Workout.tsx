@@ -1,10 +1,10 @@
 import { Exercise } from "./Exercise";
 export class Workout {
-    workoutID: number;
-    exercises: Exercise[];
+    workoutUUID: string;
+    exercises: Map<string, Exercise>
 
-    constructor(workoutID: number, exercises: Exercise[]) {
-        this.workoutID = workoutID
+    constructor(workoutUUID: string, exercises: Map<string, Exercise>) {
+        this.workoutUUID = workoutUUID
         this.exercises = exercises
     }
 }
