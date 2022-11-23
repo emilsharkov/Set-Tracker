@@ -4,10 +4,10 @@ import { login, createAccount, updateAccount, deleteAccount } from "../requests/
 import Card from '@mui/material/Card';
 import { User } from "../Objects/User"
 import { Login } from "../Objects/Login";
+var TrakaLogo = require('./../utils/logo-png.png')
 
 const LoginModal = () => {
 
-  const [text, setText] = useState("")
   const [userID, setUserID] = useState(0)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
@@ -15,6 +15,7 @@ const LoginModal = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
+  const [displayLogin, setDisplatLogin] = useState(false)
 
   async function handleAccountCreation() {
     if (firstName && lastName && username && email && password) {
@@ -67,26 +68,43 @@ const LoginModal = () => {
     }
   }
 
+  function createAccountModal(){
+    return(
+      <>
+        <form>
+          <div className="login create-account">
+            <img src={TrakaLogo} className="logo"/>
+            <input type="text"className="login-input" name="firstName" placeholder="First Name" value={firstName} onChange={(e) => handleInput("firstName", e)} />
+            <input type="text" className="login-input" name="lastName" placeholder="Last Name" value={lastName} onChange={(e) => handleInput("lastName", e)} />
+            <input type="text" className="login-input" name="username" placeholder="Username" value={username} onChange={(e) => handleInput("username", e)} />
+            <input type="text" className="login-input" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
+            <input type="password" className="login-input" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
+            <button type="button" className="login-button" onClick={() => handleAccountCreation()}>Create Account</button>
+          </div>
+        </form>
+      </>
+    )
+  }
+
+  function signInModal(){
+    return(
+      <>
+        <form>
+          <div className="login sign-in">
+            <img src={TrakaLogo} className="logo"/>
+            <input type="text" className="login-input" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
+            <input type="password" className="login-input" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
+            <button type="button" className="login-button" onClick={() => handleLogin()}>Sign In</button>
+          </div>
+        </form>
+      </>
+    )
+  }
+
   return (
     <>
       <div className="page-container">
-        <Card className='login-card' variant="outlined">
-          <form>
-            <input type="text" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
-            <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
-            <button type="button" onClick={() => handleLogin()}>Login</button>
-          </form>
-
-          <form>
-            <input type="text" name="firstName" placeholder="First Name" value={firstName} onChange={(e) => handleInput("firstName", e)} />
-            <input type="text" name="lastName" placeholder="Last Name" value={lastName} onChange={(e) => handleInput("lastName", e)} />
-            <input type="text" name="username" placeholder="Username" value={username} onChange={(e) => handleInput("username", e)} />
-            <input type="text" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
-            <input type="password" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
-
-            <button type="button" onClick={() => handleAccountCreation()}>Create Account</button>
-          </form>
-        </Card>
+        {displayLogin ? signInModal(): createAccountModal()}
       </div>
     </>
   );
