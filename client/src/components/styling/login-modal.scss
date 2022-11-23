@@ -16,7 +16,7 @@
     width: 25rem;
     background-color: white;
     border-radius: .25rem;
-    padding: 3rem 0rem 3rem 0rem;
+    padding: 3rem 0rem 2.5rem 0rem;
 
 
     .sign-in{
@@ -45,10 +45,26 @@
         border-radius: .25rem;
         border: 1px solid #b0bec5;
     }
+
+    .sign-up-in-button{
+        color: #455a64;
+        background-color: white;
+        border: none;
+        margin-top: 1.5rem;
+        margin-right: 1.7rem;
+        align-self: flex-end;
+    }
 }
 
 .logo{
     width: 30%;
     height: 20%;
     padding-bottom: 2rem;
+}
+
+.error{
+    color: red;
+    font-size: 0.75rem;
+    margin-bottom: .5rem;
+    margin-top: 0;
 }

@@ -15,7 +15,7 @@ const LoginModal = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [errorMessage, setErrorMessage] = useState("")
-  const [displayLogin, setDisplatLogin] = useState(false)
+  const [displayLogin, setDisplayLogin] = useState(true)
 
   async function handleAccountCreation() {
     if (firstName && lastName && username && email && password) {
@@ -79,7 +79,9 @@ const LoginModal = () => {
             <input type="text" className="login-input" name="username" placeholder="Username" value={username} onChange={(e) => handleInput("username", e)} />
             <input type="text" className="login-input" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
             <input type="password" className="login-input" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
+            {errorMessage === "" ? null: <p className="error"> {errorMessage} </p>}
             <button type="button" className="login-button" onClick={() => handleAccountCreation()}>Create Account</button>
+            <button className="sign-up-in-button" onClick={() => { setDisplayLogin(!displayLogin); setErrorMessage("") }}>Sign In</button>
           </div>
         </form>
       </>
@@ -94,7 +96,9 @@ const LoginModal = () => {
             <img src={TrakaLogo} className="logo"/>
             <input type="text" className="login-input" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
             <input type="password" className="login-input" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
+            {errorMessage === "" ? null: <p className="error"> {errorMessage} </p>}
             <button type="button" className="login-button" onClick={() => handleLogin()}>Sign In</button>
+            <button className="sign-up-in-button" onClick={() => { setDisplayLogin(!displayLogin); setErrorMessage("")}}>Create Account</button>
           </div>
         </form>
       </>
