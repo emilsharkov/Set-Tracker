@@ -1,4 +1,4 @@
-export class Set{
+export class RepSet{
     weight: number;
     reps: number;
 

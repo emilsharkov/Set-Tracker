@@ -1,12 +1,10 @@
-import { Set } from "./Set"
+import { RepSet } from "./RepSet"
 
 export class Exercise {
-    exerciseUUID: string;
     name: string;
-    sets: Set[];
+    sets: RepSet[];
 
-    constructor(exerciseUUID: string, name: string, sets: Set[]) {
-        this.exerciseUUID = exerciseUUID
+    constructor(name: string, sets: RepSet[]) {
         this.name = name
         this.sets = sets
     }

@@ -33,6 +33,7 @@ async function getWorkout(userID: number, workoutID: number): Promise<{data: str
 } 
 
 async function addWorkout(userID: number, newWorkout: Workout): Promise<{data: string} | undefined> {
+    console.log(newWorkout)
     try {
         const response = await fetch("http://localhost:5000/workout/" + userID, {
           method: "POST",
