@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { login, createAccount, updateAccount, deleteAccount } from "../requests/UserRequests"
 import { User } from "../Objects/User"
 import { Login } from "../Objects/Login";
-import "./styling/login-modal.scss"
+import "./styling/component-styling.scss"
 var TrakaLogo = require('./../utils/logo-png.png')
 
 const LoginModal = () => {

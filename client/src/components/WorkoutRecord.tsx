@@ -4,7 +4,7 @@ import { Exercise } from "../Objects/Exercise";
 import { RepSet } from "../Objects/RepSet"
 import { getAllWorkouts, getWorkout, addWorkout, editWorkout, deleteWorkout } from "../requests/WorkoutRequests"
 import WorkoutDropdown from "./WorkoutDropdown";
-import "./styling/login-modal.scss"
+import "./styling/component-styling.scss"
 
 
 const WorkoutRecord = () => {
@@ -32,9 +32,22 @@ const WorkoutRecord = () => {
   return (
     <>
       <div className="page-container">
-        <div>
-          {workouts.map((workout,i) => {
-            return (<><WorkoutDropdown workout={workout}/></>)
+        <div className="records-container">
+          <div className="title-button-container">
+            <div className="title-container">
+              <p>Your Workouts</p>
+            </div>
+            <div className="add-workout-div">
+              <button className="add-workout-button" onClick={() => setWorkouts([...workouts,new Workout([])])}>
+                Add Workout
+              </button>
+            </div>
+          </div>
+          
+          {workouts.slice(0,25).map((workout,i) => {
+            return (<div className="accordian-spacing">
+                      <WorkoutDropdown workout={workout} day={i+1}/>
+                    </div>)
           })}
         </div>
       </div>
