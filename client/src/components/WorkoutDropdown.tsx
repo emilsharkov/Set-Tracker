@@ -41,7 +41,7 @@ const WorkoutDropdown = (props: any) => {
           <AccordionDetails >
             {workout.exercises.map((exercise: Exercise, i: number) => {
               return(
-                <div>
+                <div className="exercise-card-container">
                   <ExerciseCard exercise={exercise} handleExerciseUpdate={handleExerciseUpdate}/>
                 </div>
               )

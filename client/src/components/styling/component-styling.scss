@@ -110,3 +110,59 @@
     height: 1rem;
     width: 50%;
 }
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.exercise-card-container{
+    display: flex;
+    padding-left: 1rem;
+    padding-bottom: 1rem;
+    flex-direction: column;
+
+    .exercise-title-container{
+        display: flex;
+        width: 100%;
+        padding-bottom: 0.5rem;
+
+        .exercise-title{
+            display: flex;
+            width: 70%;
+        }
+
+        .exercise-button-container{
+            display: flex;
+            width: 30%;
+            justify-content: flex-end;
+
+            .edit-button{
+                margin-top: 0.5rem;
+                width: 6rem;
+                height: 2rem;
+            }
+
+            .save-cancel-button{
+
+            }
+        }
+    }
+
+    .repset-container{
+        display: flex;
+        padding-bottom: 0.5rem;
+
+        .repset-input{
+            display: flex;
+            // width: 50%;
+        }
+    }
+}
