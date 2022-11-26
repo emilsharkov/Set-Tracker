@@ -11,13 +11,17 @@ import ExerciseCard from "./ExerciseCard";
 import "./styling/component-styling.scss"
 
 const WorkoutDropdown = (props: any) => {
-  const [workout, setWorkout] = useState(props.workout)
+  const [workout, setWorkout] = useState(new Workout([]))
   const [errorMessage, setErrorMessage] = useState("")
   const [editedIndex, setEditedIndex] = useState(-1)
-  const [editedExercise, setEditedExercise] = useState({})
+  const [editedExercise, setEditedExercise] = useState(new Exercise("",[]))
 
   useEffect(() => {
-    if(Object.keys(editedExercise).length === 0){
+    setWorkout(props.workout)
+  }, [props.workout])
+  
+  useEffect(() => {
+    if(editedExercise.name === "" || editedExercise.sets.length === 0){
       workout.exercises.splice(editedIndex,1)
     } else{
       workout.exercises[editedIndex] = editedExercise
@@ -30,22 +34,20 @@ const WorkoutDropdown = (props: any) => {
     setEditedExercise(exercise)
   }
 
-  const generateExercise = (exercise: Exercise) => {
-    return(
-      <div>
-        <ExerciseCard exercise={exercise} handleExerciseUpdate={handleExerciseUpdate}/>
-      </div>
-    )
-  }
-
   return (
     <>
-            <Accordion style={{width: '100%'}}>
-                <AccordionSummary expandIcon={<ExpandMoreIcon/>}>Day {props.day}</AccordionSummary>
-                <AccordionDetails >
-                  {workout.exercises.map(generateExercise)}
-                </AccordionDetails>
-            </Accordion>
+      <Accordion style={{width: '100%'}}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon/>}>Day {props.day}</AccordionSummary>
+          <AccordionDetails >
+            {workout.exercises.map((exercise: Exercise, i: number) => {
+              return(
+                <div>
+                  <ExerciseCard exercise={exercise} handleExerciseUpdate={handleExerciseUpdate}/>
+                </div>
+              )
+            })}
+          </AccordionDetails>
+      </Accordion>
     </>
   );
 };

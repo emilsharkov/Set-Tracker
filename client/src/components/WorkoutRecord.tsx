@@ -29,6 +29,8 @@ const WorkoutRecord = () => {
     fetchWorkouts()
   },[])
 
+  console.log(workouts)
+
   return (
     <>
       <div className="page-container">
@@ -43,11 +45,11 @@ const WorkoutRecord = () => {
               </button>
             </div>
           </div>
-          
           {workouts.slice(0,25).map((workout,i) => {
-            return (<div className="accordian-spacing">
-                      <WorkoutDropdown workout={workout} day={i+1}/>
-                    </div>)
+            return (
+              <div className="accordian-spacing">
+                <WorkoutDropdown workout={workout} day={i+1}/>
+              </div>)
           })}
         </div>
       </div>
