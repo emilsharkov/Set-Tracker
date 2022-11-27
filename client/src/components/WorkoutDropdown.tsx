@@ -11,22 +11,24 @@ import ExerciseCard from "./ExerciseCard";
 import "./styling/component-styling.scss"
 
 const WorkoutDropdown = (props: any) => {
-  const [workout, setWorkout] = useState(new Workout([]))
+  const [workout, setWorkout] = useState(new Workout(-1,[]))
   const [errorMessage, setErrorMessage] = useState("")
   const [editedIndex, setEditedIndex] = useState(-1)
   const [editedExercise, setEditedExercise] = useState(new Exercise("",[]))
+  const [workoutID, setWorkoutID] = useState(props.workoutID)
 
   useEffect(() => {
     setWorkout(props.workout)
   }, [props.workout])
-  
+
   useEffect(() => {
-    if(editedExercise.name === "" || editedExercise.sets.length === 0){
-      workout.exercises.splice(editedIndex,1)
+    let copy = new Workout(workout.workoutID,[...workout.exercises])
+    if(editedIndex === -1 || editedExercise.name === "" || editedExercise.sets.length === 0){
+      return
     } else{
-      workout.exercises[editedIndex] = editedExercise
+      copy.exercises[editedIndex] = editedExercise
     }
-    setWorkout(workout)
+    setWorkout(copy)
   }, [editedIndex, editedExercise])
 
   const handleExerciseUpdate = (exercise: Exercise, exerciseNum: number) => {
@@ -42,7 +44,7 @@ const WorkoutDropdown = (props: any) => {
             {workout.exercises.map((exercise: Exercise, i: number) => {
               return(
                 <div className="exercise-card-container">
-                  <ExerciseCard exercise={exercise} handleExerciseUpdate={handleExerciseUpdate}/>
+                  <ExerciseCard editable={workout.workoutID < 0} exercise={exercise} handleExerciseUpdate={handleExerciseUpdate} index={i}/>
                 </div>
               )
             })}

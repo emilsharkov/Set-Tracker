@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Workout } from "../Objects/Workout";
 import { Exercise } from "../Objects/Exercise";
 import { RepSet } from "../Objects/RepSet"
@@ -12,6 +12,7 @@ const WorkoutRecord = () => {
   const [workouts, setWorkouts] = useState(initialWorkouts)
   const [userID, setUserID] = useState(1)
   const [errorMessage, setErrorMessage] = useState("")
+  const unregisteredIndex = useRef(-1)
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -21,7 +22,7 @@ const WorkoutRecord = () => {
       let dbWorkouts: Workout[] = []
       let databaseEntries = JSON.parse(fetchedWorkouts!.data)
       databaseEntries.forEach((databaseEntry: any) => {
-        console.log(JSON.parse(databaseEntry.workout_details))
+        console.log(databaseEntry)
         dbWorkouts!.push(JSON.parse(databaseEntry.workout_details))
       });
       setWorkouts(dbWorkouts)
@@ -29,7 +30,10 @@ const WorkoutRecord = () => {
     fetchWorkouts()
   },[])
 
-  console.log(workouts)
+  const addWorkout = () => {
+    setWorkouts([...workouts,new Workout(unregisteredIndex.current,[new Exercise("",[new RepSet(0,0)])])])
+    unregisteredIndex.current--
+  }
 
   return (
     <>
@@ -40,7 +44,7 @@ const WorkoutRecord = () => {
               <p>Your Workouts</p>
             </div>
             <div className="add-workout-div">
-              <button className="add-workout-button" onClick={() => setWorkouts([...workouts,new Workout([])])}>
+              <button className="add-workout-button" onClick={addWorkout}>
                 Add Workout
               </button>
             </div>
