@@ -20,11 +20,11 @@ Step 5: Navigate the second terminal into the server folder and run ```npm insta
 
 Step 6: Open another terminal and run ```psql -U postgres``` and login
 
-Step 7: Execute the first command in ./server/database/db_create.sql
+Step 7: Execute the first command in ```./server/database/db_create.sql```
 
 Step 8: Navigate into the database by typing ```\c set_tracker```
 
-Step 9: Execute the last two commands in ./server/database/db_create.sql one by one
+Step 9: Execute the last two commands in ```./server/database/db_create.sql``` one by one
 
 ## Usage
 
