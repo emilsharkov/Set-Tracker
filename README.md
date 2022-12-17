@@ -30,7 +30,7 @@ Step 9: Execute the last two commands in ```./server/database/db_create.sql``` o
 
 Step 10: To run the application open two terminals, one for the client and one for the server and run ```npm start``` in both
 
-Step 10.5: If you have GNU Make on your local machine you can run the Makefile to run both the client and server
+Step 10.5: If you have GNU Make on your local machine you can run the Makefile by typing ```make``` in the base directory to run both the client and server 
 
 ## Constributing
 
