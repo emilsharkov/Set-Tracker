@@ -1,6 +1,6 @@
 # Traka
 
-Traka is full stack PERN web application made to record workout data for bodybuilders
+Traka is full stack PERN web application made to record workout data for bodybuilders. It uses Node.js as a runtime environment, Express.js on the server-side to run RESTful APIs, PostgreSQL as a database, and React.js written in TypeScript for the front-end.
 
 ## Requirements
 
