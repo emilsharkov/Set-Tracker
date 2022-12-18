@@ -7,32 +7,57 @@ import WorkoutDropdown from "./WorkoutDropdown";
 import "./styling/component-styling.scss"
 
 
-const WorkoutRecord = () => {
-  const initialWorkouts: Workout[] = []
+const WorkoutRecord = (props: any) => {
+  const initialWorkouts: [number,Workout][] = []
   const [workouts, setWorkouts] = useState(initialWorkouts)
-  const [userID, setUserID] = useState(1)
+  const [userID, setUserID] = useState(-1)
   const [errorMessage, setErrorMessage] = useState("")
   const unregisteredIndex = useRef(-1)
 
   useEffect(() => {
+    if(props.userID !== -1 && props.userID !== undefined){
+      setUserID(props.userID) 
+    }
+  },[props.userID])
+
+  useEffect(() => {
     const fetchWorkouts = async () => {
+      if(userID === -1) { return }
+      console.log(userID)
       let fetchedWorkouts = await getAllWorkouts(userID)
       if(fetchedWorkouts!.data === '"User Not Found"'){ return }
-
-      let dbWorkouts: Workout[] = []
+  
+      let dbWorkouts: [number,Workout][] = []
       let databaseEntries = JSON.parse(fetchedWorkouts!.data)
+      console.log(databaseEntries)
+      
       databaseEntries.forEach((databaseEntry: any) => {
-        console.log(databaseEntry)
-        dbWorkouts!.push(JSON.parse(databaseEntry.workout_details))
+        let dbWorkout: Workout = JSON.parse(databaseEntry.workout_details)
+        dbWorkouts!.push([databaseEntry.workout_id,dbWorkout])
       });
       setWorkouts(dbWorkouts)
+      console.log(dbWorkouts)
     }
     fetchWorkouts()
-  },[])
+  },[userID])
 
-  const addWorkout = () => {
-    setWorkouts([...workouts,new Workout(unregisteredIndex.current,[new Exercise("",[new RepSet(0,0)])])])
+  const addWorkoutToList = () => {
+    let emptyWorkout: Workout = {exercises: [new Exercise("",[new RepSet(0,0)])]}
+    setWorkouts([...workouts,[unregisteredIndex.current,emptyWorkout]])
     unregisteredIndex.current--
+  }
+
+  const updateWorkouts = async (workout: Workout, workoutNum: number, workoutID: number, remove: boolean) => {
+    let copy = [...workouts]
+    if(remove){
+      copy.splice(workoutNum,1)
+      deleteWorkout(userID,workoutID)
+    } else{
+      let response = workoutID < 0 ? await addWorkout(userID,workout): await editWorkout(userID, workoutID, workout)
+      let returnedEntry = JSON.parse(response!.data)
+      copy[workoutNum] = [returnedEntry.workout_id,workout]
+    }
+    setWorkouts(copy)
   }
 
   return (
@@ -44,15 +69,15 @@ const WorkoutRecord = () => {
               <p>Your Workouts</p>
             </div>
             <div className="add-workout-div">
-              <button className="add-workout-button" onClick={addWorkout}>
+              <button className="add-workout-button" onClick={addWorkoutToList}>
                 Add Workout
               </button>
             </div>
           </div>
-          {workouts.slice(0,25).map((workout,i) => {
+          {workouts.slice(0,25).map((workoutPair,i) => {
             return (
               <div className="accordian-spacing">
-                <WorkoutDropdown workout={workout} day={i+1}/>
+                <WorkoutDropdown workoutPair={workoutPair} updateWorkouts={updateWorkouts} day={i+1}/>
               </div>)
           })}
         </div>

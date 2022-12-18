@@ -8,46 +8,100 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExerciseCard from "./ExerciseCard";
+import StatusModal from "./StatusModal";
 import "./styling/component-styling.scss"
 
 const WorkoutDropdown = (props: any) => {
-  const [workout, setWorkout] = useState(new Workout(-1,[]))
+  const [workout, setWorkout] = useState(new Workout([]))
+  const [workoutID, setWorkoutID] = useState(0)
   const [errorMessage, setErrorMessage] = useState("")
+  const [modalOpen, setModalOpen] = useState(false)
   const [editedIndex, setEditedIndex] = useState(-1)
   const [editedExercise, setEditedExercise] = useState(new Exercise("",[]))
-  const [workoutID, setWorkoutID] = useState(props.workoutID)
 
   useEffect(() => {
-    setWorkout(props.workout)
-  }, [props.workout])
+    setWorkoutID(props.workoutPair[0])
+    setWorkout(props.workoutPair[1])
+  }, [props.workoutPair])
 
   useEffect(() => {
-    let copy = new Workout(workout.workoutID,[...workout.exercises])
+    let copy = new Workout([...workout.exercises])
     if(editedIndex === -1 || editedExercise.name === "" || editedExercise.sets.length === 0){
       return
     } else{
       copy.exercises[editedIndex] = editedExercise
     }
-    setWorkout(copy)
+    props.updateWorkouts(copy,props.day - 1,workoutID,false)
   }, [editedIndex, editedExercise])
 
-  const handleExerciseUpdate = (exercise: Exercise, exerciseNum: number) => {
-    setEditedIndex(exerciseNum)
-    setEditedExercise(exercise)
+  const handleExerciseUpdate = (exercise: Exercise, exerciseNum: number, remove: boolean) => {
+    if(remove) {
+      let exercisesCopy = [...workout.exercises]
+      exercisesCopy.splice(exerciseNum,1)
+      let copy = new Workout(exercisesCopy)
+      props.updateWorkouts(copy,props.day - 1,workoutID,false)
+      if(copy.exercises.length === 0) {
+        setModalOpen(true)
+      }
+    } else{
+      setEditedIndex(exerciseNum)
+      setEditedExercise(exercise)
+    }
+  }
+
+  const addExercise = () => {
+    setWorkout(new Workout([...workout.exercises,new Exercise("",[new RepSet(0,0)])]))
+  }
+
+  const deleteWorkout = () => {
+    props.updateWorkouts(workout,props.day - 1,workoutID,true)
+  }
+
+  const showDeleteModal = () => {
+    setModalOpen(true)
+  }
+
+  const DeleteWorkoutModal = () => {
+    return(
+      <div>
+        <StatusModal 
+          open={modalOpen} 
+          onClose={() => setModalOpen(false)} 
+          modalTitle={"Are you sure you want to delete this workout?"}
+          modalDescription={"You cannot undo this action"}
+          children={
+              <>
+                <button onClick={() => setModalOpen(false)}>Keep Working</button>
+                <button onClick={deleteWorkout}>Delete</button>
+              </>
+          }/>
+      </div>
+    )
+  }
+
+  const isNewSet = (exercise: Exercise): boolean => {
+    return exercise.name === "" && exercise.sets.some((set: RepSet) => { return set.reps === 0 && set.weight === 0})
   }
 
   return (
     <>
       <Accordion style={{width: '100%'}}>
           <AccordionSummary expandIcon={<ExpandMoreIcon/>}>Day {props.day}</AccordionSummary>
-          <AccordionDetails >
-            {workout.exercises.map((exercise: Exercise, i: number) => {
-              return(
-                <div className="exercise-card-container">
-                  <ExerciseCard editable={workout.workoutID < 0} exercise={exercise} handleExerciseUpdate={handleExerciseUpdate} index={i}/>
-                </div>
-              )
-            })}
+          <AccordionDetails>
+            <>
+              <DeleteWorkoutModal/>
+              {workout.exercises.map((exercise: Exercise, i: number) => {
+                return(
+                  <div className="exercise-card-container">
+                    <ExerciseCard editable={isNewSet(exercise)} exercise={exercise} handleExerciseUpdate={handleExerciseUpdate} index={i}/>
+                  </div>
+                )
+              })}
+              <div>
+                <div><button onClick={addExercise}>Add Exercise</button></div>
+                <div><button onClick={showDeleteModal}>Delete Workout</button></div>
+              </div>
+            </>
           </AccordionDetails>
       </Accordion>
     </>

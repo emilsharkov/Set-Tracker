@@ -5,26 +5,25 @@ import { Login } from "../Objects/Login";
 import "./styling/component-styling.scss"
 var TrakaLogo = require('./../utils/logo-png.png')
 
-const LoginModal = () => {
+const LoginModal = (props: any) => {
 
-  const [userID, setUserID] = useState(0)
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
+  const [email, setEmail] = useState("test2")
+  const [password, setPassword] = useState("password")
   const [errorMessage, setErrorMessage] = useState("")
   const [displayLogin, setDisplayLogin] = useState(true)
 
   async function handleAccountCreation() {
     if (firstName && lastName && username && email && password) {
-      const promise = await createAccount(new User(firstName, lastName, username, email, password))
+      const promise = await createAccount(new User(firstName, lastName, email, username, password))
       let user = JSON.parse(promise!.data)
 
       if (typeof user === 'string') {
         setErrorMessage("Your email is already being used by another account. Please sign in")
       } else {
-        setUserID(user.userID)
+        props.loginWithUserID(user.user_id)
       }
     } else {
       setErrorMessage("Fill All Fields")
@@ -39,7 +38,7 @@ const LoginModal = () => {
       if (typeof user === 'string') {
         setErrorMessage("User Not Found")
       } else {
-        setUserID(user.userID)
+        props.loginWithUserID(user.user_id)
       }
     } else {
       setErrorMessage("Enter Login")

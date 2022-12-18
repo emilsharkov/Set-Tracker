@@ -71,6 +71,7 @@ router.put("/:userID/:workoutID", async (req, res) => {
             [updatedWorkoutReq, workoutIDReq]
         )
         
+        console.log(updatedWorkout)
         if(updatedWorkout.rows.length) {
             res.json(updatedWorkout.rows[0])
         } else {
