@@ -6,17 +6,16 @@ router.get("/:login", async (req, res) => {
     try {
         let loginReq = JSON.parse(decodeURIComponent(req.params.login))
         const user = await pool.query(
-            "SELECT * FROM \"user\" where email = $1 and password = $2",
+            "SELECT user_id,first_name,last_name,email FROM \"user\" where email = $1 and password = $2",
             [loginReq.email, loginReq.password]
         )
-        
         if(user.rows.length) {
             res.json(user.rows[0])
         } else {
             throw new Error('User Not Found')
         }
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 
@@ -24,9 +23,10 @@ router.post("/", async (req, res) => {
     try {
         let newUserReq = req.body.newUser
         const newUser = await pool.query(
-            "INSERT INTO \"user\" (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) returning *",
+            "INSERT INTO \"user\" (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) returning user_id,first_name,last_name,email",
             [newUserReq.firstName, newUserReq.lastName, newUserReq.email, newUserReq.username, newUserReq.password]
         )
+        console.log(newUser)
         if(newUser.rows.length) {
             res.json(newUser.rows[0])
         } else {
@@ -34,7 +34,7 @@ router.post("/", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 
@@ -43,7 +43,7 @@ router.put("/:id", async (req, res) => {
         let updatedUserReq = req.body.updatedUser
         let userID = req.params.id
         const updatedUser = await pool.query(
-            "UPDATE \"user\" SET (first_name, last_name, email, username, password) = ($1, $2, $3, $4, $5) where user_id = $6 returning *",
+            "UPDATE \"user\" SET (first_name, last_name, email, username, password) = ($1, $2, $3, $4, $5) where user_id = $6 returning user_id,first_name,last_name,email",
             [updatedUserReq.firstName, updatedUserReq.lastName, updatedUserReq.email, updatedUserReq.username, updatedUserReq.password, userID]
         )
 
@@ -54,7 +54,7 @@ router.put("/:id", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 
@@ -62,7 +62,7 @@ router.delete("/:id", async (req, res) => {
     try {
         let deleteIDReq = req.params.id
         const deletedUser = await pool.query(
-            "DELETE FROM \"user\" WHERE user_id = $1 returning *",
+            "DELETE FROM \"user\" WHERE user_id = $1 returning user_id,first_name,last_name,email",
             [deleteIDReq]
         )
 
@@ -73,7 +73,7 @@ router.delete("/:id", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 

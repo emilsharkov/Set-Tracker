@@ -17,7 +17,7 @@ router.get("/:userID", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 
@@ -37,7 +37,7 @@ router.get("/:userID/:workoutID", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 
@@ -57,7 +57,7 @@ router.post("/:userID/", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 
@@ -65,13 +65,13 @@ router.put("/:userID/:workoutID", async (req, res) => {
     try {
         let workoutIDReq = req.params.workoutID
         let updatedWorkoutReq = req.body.updatedWorkout
-        console.log(updatedWorkoutReq)
+        
         const updatedWorkout = await pool.query(
             "UPDATE \"workout\" SET workout_details = $1 WHERE workout_id = $2 returning *",
             [updatedWorkoutReq, workoutIDReq]
         )
         
-        console.log(updatedWorkout)
+        
         if(updatedWorkout.rows.length) {
             res.json(updatedWorkout.rows[0])
         } else {
@@ -79,7 +79,7 @@ router.put("/:userID/:workoutID", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 
@@ -99,7 +99,7 @@ router.delete("/:userID/:workoutID", async (req, res) => {
         }
 
     } catch (err) {
-        res.json(err.message)
+        res.status(404).json(err.message)
     }
 })
 

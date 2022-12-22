@@ -8,11 +8,11 @@ async function login(login: Login): Promise<{data: string} | undefined> {
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json()
-        console.log(data)
+        
         return { data: JSON.stringify(data, null, '\t')}
     } catch (err) {
         if(err instanceof Error){
-            console.log(err.message)
+            
         }
     }
 } 
@@ -25,11 +25,11 @@ async function createAccount(newUser: User): Promise<{data: string} | undefined>
         body: JSON.stringify( {newUser} ) 
       });
       const data = await response.json()
-      console.log(data)
+      
       return { data: JSON.stringify(data, null, '\t')}
   } catch (err) {
       if(err instanceof Error){
-        console.log(err.message)
+        
       }
   }
 }
@@ -42,11 +42,11 @@ async function updateAccount(userID: number, updatedUser: User): Promise<{data: 
         body: JSON.stringify( {updatedUser} ) 
       });
       const data = await response.json()
-      console.log(data)
+      
       return { data: JSON.stringify(data, null, '\t')}
   } catch (err) {
       if(err instanceof Error){
-          console.log(err.message)
+          
       }
   }
 }
@@ -58,11 +58,11 @@ async function deleteAccount(userID: number): Promise<{data: string} | undefined
         headers: { "Content-Type": "application/json" },
       });
       const data = await response.json()
-      console.log(data)
+      
       return { data: JSON.stringify(data, null, '\t')}
   } catch (err) {
       if(err instanceof Error){
-          console.log(err.message)
+          
       }
   }
 }

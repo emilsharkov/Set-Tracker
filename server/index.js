@@ -15,5 +15,5 @@ app.use('/user', userRoute)
 app.use('/workout', workoutRoute)
 
 app.listen(5000, () => {
-    console.log('server has started on port 5000')
+    console.log("now listening on port 5000")
 })

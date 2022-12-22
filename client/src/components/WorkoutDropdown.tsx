@@ -30,8 +30,10 @@ const WorkoutDropdown = (props: any) => {
       return
     } else{
       copy.exercises[editedIndex] = editedExercise
+      console.log(copy)
+      console.log(editedIndex)
     }
-    props.updateWorkouts(copy,props.day - 1,workoutID,false)
+    props.updateWorkouts(copy,props.day,workoutID,false)
   }, [editedIndex, editedExercise])
 
   const handleExerciseUpdate = (exercise: Exercise, exerciseNum: number, remove: boolean) => {
@@ -39,13 +41,14 @@ const WorkoutDropdown = (props: any) => {
       let exercisesCopy = [...workout.exercises]
       exercisesCopy.splice(exerciseNum,1)
       let copy = new Workout(exercisesCopy)
-      props.updateWorkouts(copy,props.day - 1,workoutID,false)
+      props.updateWorkouts(copy,props.day,workoutID,false)
       if(copy.exercises.length === 0) {
         setModalOpen(true)
       }
     } else{
       setEditedIndex(exerciseNum)
       setEditedExercise(exercise)
+      console.log(exercise)
     }
   }
 
@@ -54,7 +57,8 @@ const WorkoutDropdown = (props: any) => {
   }
 
   const deleteWorkout = () => {
-    props.updateWorkouts(workout,props.day - 1,workoutID,true)
+    props.updateWorkouts(workout,props.day,workoutID,true)
+    setModalOpen(false)
   }
 
   const showDeleteModal = () => {

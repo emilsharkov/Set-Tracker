@@ -69,19 +69,17 @@ const LoginModal = (props: any) => {
   function createAccountModal(){
     return(
       <>
-        <form>
-          <div className="login create-account">
-            <img src={TrakaLogo} className="logo"/>
-            <input type="text"className="login-input" name="firstName" placeholder="First Name" value={firstName} onChange={(e) => handleInput("firstName", e)} />
-            <input type="text" className="login-input" name="lastName" placeholder="Last Name" value={lastName} onChange={(e) => handleInput("lastName", e)} />
-            <input type="text" className="login-input" name="username" placeholder="Username" value={username} onChange={(e) => handleInput("username", e)} />
-            <input type="text" className="login-input" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
-            <input type="password" className="login-input" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
-            {errorMessage === "" ? null: <p className="error"> {errorMessage} </p>}
-            <button type="button" className="login-button" onClick={() => handleAccountCreation()}>Create Account</button>
-            <button className="sign-up-in-button" onClick={() => { setDisplayLogin(!displayLogin); setErrorMessage("") }}>Sign In</button>
-          </div>
-        </form>
+        <div className="login create-account">
+          <img src={TrakaLogo} className="logo"/>
+          <input type="text"className="login-input" name="firstName" placeholder="First Name" value={firstName} onChange={(e) => handleInput("firstName", e)} />
+          <input type="text" className="login-input" name="lastName" placeholder="Last Name" value={lastName} onChange={(e) => handleInput("lastName", e)} />
+          <input type="text" className="login-input" name="username" placeholder="Username" value={username} onChange={(e) => handleInput("username", e)} />
+          <input type="text" className="login-input" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
+          <input type="password" className="login-input" name="password" placeholder="Password" value={password} onChange={(e) => handleInput("password", e)} />
+          {errorMessage === "" ? null: <p className="error"> {errorMessage} </p>}
+          <button type="button" className="login-button" onClick={() => handleAccountCreation()}>Create Account</button>
+          <button className="sign-up-in-button" onClick={() => { setDisplayLogin(!displayLogin); setErrorMessage("") }}>Sign In</button>
+        </div>
       </>
     )
   }
@@ -89,7 +87,6 @@ const LoginModal = (props: any) => {
   function signInModal(){
     return(
       <>
-        <form>
           <div className="login sign-in">
             <img src={TrakaLogo} className="logo"/>
             <input type="text" className="login-input" name="email" placeholder="Email" value={email} onChange={(e) => handleInput("email", e)} />
@@ -98,7 +95,6 @@ const LoginModal = (props: any) => {
             <button type="button" className="login-button" onClick={() => handleLogin()}>Sign In</button>
             <button className="sign-up-in-button" onClick={() => { setDisplayLogin(!displayLogin); setErrorMessage("")}}>Create Account</button>
           </div>
-        </form>
       </>
     )
   }

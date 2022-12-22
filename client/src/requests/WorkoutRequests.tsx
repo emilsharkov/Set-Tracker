@@ -7,11 +7,11 @@ async function getAllWorkouts(userID: number): Promise<{data: string} | undefine
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json()
-        console.log(data)
+        
         return { data: JSON.stringify(data, null, '\t')}
     } catch (err) {
         if(err instanceof Error){
-            console.log(err.message)
+            
         }
     }
 } 
@@ -23,17 +23,17 @@ async function getWorkout(userID: number, workoutID: number): Promise<{data: str
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json()
-        console.log(data)
+        
         return { data: JSON.stringify(data, null, '\t')}
     } catch (err) {
         if(err instanceof Error){
-            console.log(err.message)
+            
         }
     }
 } 
 
 async function addWorkout(userID: number, newWorkout: Workout): Promise<{data: string} | undefined> {
-    console.log(newWorkout)
+    
     try {
         const response = await fetch("http://localhost:5000/workout/" + userID, {
           method: "POST",
@@ -41,11 +41,11 @@ async function addWorkout(userID: number, newWorkout: Workout): Promise<{data: s
           body: JSON.stringify( {newWorkout} ) 
         });
         const data = await response.json()
-        console.log(data)
+        
         return { data: JSON.stringify(data, null, '\t')}
     } catch (err) {
         if(err instanceof Error){
-            console.log(err.message)
+            
         }
     }
 }
@@ -58,11 +58,11 @@ async function editWorkout(userID: number, workoutID: number, updatedWorkout: Wo
           body: JSON.stringify( {updatedWorkout} ) 
         });
         const data = await response.json()
-        console.log(data)
+        
         return { data: JSON.stringify(data, null, '\t')}
     } catch (err) {
         if(err instanceof Error){
-            console.log(err.message)
+            
         }
     }
 } 
@@ -74,11 +74,11 @@ async function deleteWorkout(userID: number, workoutID: number): Promise<{data: 
           headers: { "Content-Type": "application/json" },
         });
         const data = await response.json()
-        console.log(data)
+        
         return { data: JSON.stringify(data, null, '\t')}
     } catch (err) {
         if(err instanceof Error){
-            console.log(err.message)
+            
         }
     }
 } 

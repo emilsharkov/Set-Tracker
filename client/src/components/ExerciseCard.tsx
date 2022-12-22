@@ -10,6 +10,10 @@ const ExerciseCard = (props: any) => {
   const [editing, setEditing] = useState(props.editable)
   const [modalOpen, setModalOpen] = useState(false)
 
+  useEffect(() => {
+    setExercise(props.exercise)
+    setEditing(props.editable)
+  }, [props])
 
   const updateExercise = (e: React.ChangeEvent<HTMLInputElement>, i: number, element: string) => {
     let copy: Exercise = {name: exercise.name, sets: [...exercise.sets]}
@@ -19,7 +23,7 @@ const ExerciseCard = (props: any) => {
             break
         case 'weight':
             copy.sets[i].weight = e.target.valueAsNumber
-            console.log(copy.sets[i].weight)
+            
             break
         case 'reps':
             copy.sets[i].reps = e.target.valueAsNumber
