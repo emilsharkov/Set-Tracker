@@ -1,11 +1,3 @@
-CREATE USER docker;
-
-CREATE DATABASE set_tracker;
-
-GRANT ALL PRIVILEGES ON DATABASE set_tracker TO docker;
-
-\c set_tracker
-
 CREATE TABLE "user"(
     user_id SERIAL Primary KEY,
     first_name VARCHAR (30) NOT NULL,
@@ -15,9 +7,8 @@ CREATE TABLE "user"(
     password VARCHAR (255) NOT NULL
 );
 
-CREATE TABLE set_tracker."workout"(
+CREATE TABLE "workout"(
     workout_id SERIAL PRIMARY KEY,
     user_id integer REFERENCES "user"(user_id),
     workout_details VARCHAR (1000) NOT NULL
 );
-

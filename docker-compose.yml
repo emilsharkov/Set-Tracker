@@ -1,10 +1,32 @@
-version: "2.13"
+version: "3.8"
 services:
+
   client:
     build: ./client
     ports: 
       - "3000:3000"
+    restart: unless-stopped
+
   server:
     build: ./server
     ports:
       - "5000:5000"
+    depends_on:
+      - database
+    restart: unless-stopped
+  
+  database:
+    build: ./database
+    ports:
+      - "4000:4000"
+    environment:
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=docker
+      - PGPORT=4000
+    volumes:
+      - my-data:/var/lib/postgresql/data
+    restart: unless-stopped
+  
+volumes:
+    my-data:

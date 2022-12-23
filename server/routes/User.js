@@ -26,7 +26,6 @@ router.post("/", async (req, res) => {
             "INSERT INTO \"user\" (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) returning user_id,first_name,last_name,email",
             [newUserReq.firstName, newUserReq.lastName, newUserReq.email, newUserReq.username, newUserReq.password]
         )
-        console.log(newUser)
         if(newUser.rows.length) {
             res.json(newUser.rows[0])
         } else {
