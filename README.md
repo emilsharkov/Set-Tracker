@@ -14,9 +14,9 @@ Step 1: Make sure you have Docker and git installed on your local machine
 
 Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Set-Tracker.git```
 
-#### Usage
-
 Step 3: Navigate inside the Traka folder, open a terminal, and type ```docker-compose up```
+
+#### Usage
 
 Step 4: Open a browser and type ```localhost:3000``` into the search bar and the application will be running
 
