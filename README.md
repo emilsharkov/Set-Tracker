@@ -48,11 +48,22 @@ Step 8: Navigate into the database by typing ```\c set_tracker```
 
 Step 9: Execute the last two commands in ```./server/database/db_create.sql``` one by one
 
+Step 10: Navigate to ./server/database/database.js and change the pool to 
+```
+const pool = new Pool({
+    user: 'postgres',
+    password: *your postgres password*,
+    host: "localhost",
+    port: 5432,
+    database: "set_tracker"
+})
+```
+
 #### Usage
 
-Step 10: To run the application open two terminals, one for the client and one for the server and run ```npm start``` in both
+Step 11: To run the application open two terminals, one for the client and one for the server and run ```npm start``` in both
 
-Step 10.5: If you have GNU Make on your local machine you can run the Makefile by typing ```make``` in the base directory to run both the client and server 
+Step 11.5: If you have GNU Make on your local machine you can run the Makefile by typing ```make``` in the base directory to run both the client and server 
 
 ## Contributing
 
