@@ -54,6 +54,6 @@ Step 10: To run the application open two terminals, one for the client and one f
 
 Step 10.5: If you have GNU Make on your local machine you can run the Makefile by typing ```make``` in the base directory to run both the client and server 
 
-### Constributing
+## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
