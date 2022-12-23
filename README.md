@@ -58,7 +58,6 @@ const pool = new Pool({
     database: "set_tracker"
 })
 ```
-
 #### Usage
 
 Step 11: To run the application open two terminals, one for the client and one for the server and run ```npm start``` in both
