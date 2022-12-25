@@ -71,11 +71,11 @@ const ExerciseCard = (props: any) => {
               <div className="list-item">
                 <div className="repset-input">
                     {editing ? <input placeholder="Weight (lbs)" type="number" value={set.weight !== 0 ? set.weight: ""} className="repset-input-box workout-theme" 
-                      onChange={(e) => updateExercise(e,i,"weight")}/>: <p>{set.weight} lbs</p>}
+                      onChange={(e) => updateExercise(e,i,"weight")}/>: <p>{!isNaN(set.weight) ? set.weight: 0} lbs</p>}
                 </div>
                 <div className="repset-input">
                     {editing ? <><input placeholder="Repetitions" type="number" value={set.reps !== 0 ? set.reps: ""} className="repset-input-box workout-theme" onChange={(e) => updateExercise(e,i,"reps")} />
-                      <button className="repset-input-box delete-set-button workout-theme" onClick={() => removeSet(i)}>X</button></> : <p style={{marginLeft:'.3rem'}}>x {set.reps}</p>}
+                      <button className="repset-input-box delete-set-button workout-theme" onClick={() => removeSet(i)}>X</button></> : <p style={{marginLeft:'.3rem'}}>x {!isNaN(set.reps) ? set.reps: 0}</p>}
                 </div>
               </div>
                 
