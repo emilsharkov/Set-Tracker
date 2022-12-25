@@ -12,7 +12,7 @@ Step 1: Make sure you have Docker and git installed on your local machine
 
 #### Installation
 
-Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Set-Tracker.git```
+Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Traka.git```
 
 #### Usage
 
@@ -32,7 +32,7 @@ Step 1.5: GNU Make is not a requirement, however, it makes running the applicati
 
 #### Installation
 
-Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Set-Tracker.git```
+Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Traka.git```
 
 Step 3: Open two terminals and navigate to the cloned repository folder
 
