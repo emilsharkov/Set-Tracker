@@ -23,7 +23,6 @@ const ExerciseCard = (props: any) => {
             break
         case 'weight':
             copy.sets[i].weight = e.target.valueAsNumber
-            
             break
         case 'reps':
             copy.sets[i].reps = e.target.valueAsNumber
@@ -44,7 +43,7 @@ const ExerciseCard = (props: any) => {
   }
 
   const saveDisabled = (): boolean => {
-    let containsInvalid = exercise.sets.some((repSet: RepSet) => (isNaN(repSet.reps) || isNaN(repSet.weight) || repSet.weight <= 0 || repSet.reps <= 0))
+    let containsInvalid = exercise.sets.some((repSet: RepSet) => (isNaN(repSet.reps) || isNaN(repSet.weight) || repSet.weight === 0 || repSet.reps === 0))
     
     return exercise.name === "" || exercise.sets.length === 0 || containsInvalid
   }

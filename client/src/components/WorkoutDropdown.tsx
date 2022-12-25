@@ -83,6 +83,16 @@ const WorkoutDropdown = (props: any) => {
     return exercise.name === "" && exercise.sets.some((set: RepSet) => { return set.reps === 0 && set.weight === 0})
   }
 
+  const addDisabled = (): boolean => {
+    let disabled = false;
+    workout.exercises.forEach(exercise => {
+      disabled = disabled || exercise.name === "" || exercise.sets.length === 0 
+        || exercise.sets.some((repSet: RepSet) => (isNaN(repSet.reps) || isNaN(repSet.weight) || repSet.weight <= 0 || repSet.reps <= 0))
+    })
+    console.log(disabled)
+    return disabled
+  }
+
   return (
     <>
       <Accordion className="workout-theme" style={{width: '100%'}}>
@@ -106,7 +116,7 @@ const WorkoutDropdown = (props: any) => {
                 )
               })}
               <div className="split-div-container">
-                <div className="split-div"><button className="workout-theme add-exercise" onClick={addExercise}>Add Exercise</button></div>
+                <div className="split-div"><button className="workout-theme add-exercise" disabled={addDisabled()} onClick={addExercise}>Add Exercise</button></div>
                 <div className="split-div flex-end"><button className="workout-theme add-exercise"onClick={showDeleteModal}>Delete Workout</button></div>
               </div>
             </>
