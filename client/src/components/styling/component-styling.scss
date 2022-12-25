@@ -1,7 +1,18 @@
-.page-container {
+.page-container-account {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: #eceff1;
+    overflow: scroll;
+    flex-direction: column;
+}
+
+.page-container-workout {
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     background-color: #eceff1;
@@ -14,96 +25,119 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    width: 25rem;
     background-color: white;
     border-radius: .25rem;
-    padding: 2rem 1rem 2.5rem 1rem;
-    margin-top: 5rem;
+    padding: 3rem 0rem 2.5rem 0rem;
+    
+    .login-input{
+        margin-bottom: 1rem;
+        width: 20rem;
+        height: 1.5rem;
+        padding: .5rem .5rem .5rem .75rem;
+        border: 1px solid #b0bec5;
+        border-radius: .25rem;
+    }
+
+    .login-button{
+        margin-top: .5rem;
+        width: 21.5rem;
+        height: 2.75rem;
+        background-color: #455a64;
+        color: #eceff1;
+        border-radius: .25rem;
+        border: 1px solid #b0bec5;
+    }
+
+    .sign-up-in-button{
+        color: #455a64;
+        background-color: white;
+        border: none;
+        margin-top: 1.5rem;
+        margin-right: 1.7rem;
+        align-self: flex-end;
+    }
+
+    .logo-create-account{
+        width: 30%;
+        height: 20%;
+        padding-bottom: 2rem;
+    }
+
+    .logo-login{
+        width: 30%;
+        height: 30%;
+        padding-bottom: 2rem;
+    }
+    
+    .error{
+        color: red;
+        font-size: 0.75rem;
+        margin-bottom: .5rem;
+        margin-top: 0;
+    }
+}
+
+.logout-button-div {
     display: flex;
-    align-self: center;
-    // width: 80%;
-}
-
-.sign-in{
-    // height: max(20rem,80%);
-    // justify-self: center;
-}
-
-.create-account{
-    height: 80%;
-}
-
-.login-input{
-    margin-bottom: 1rem;
-    width: 20rem;
-    height: 1.5rem;
-    padding: .5rem .5rem .5rem .75rem;
-    border: 1px solid #b0bec5;
-    border-radius: .25rem;
-}
-
-.login-button{
-    margin-top: .5rem;
-    width: 21.5rem;
-    height: 2.75rem;
-    background-color: #455a64;
-    color: #eceff1;
-    border-radius: .25rem;
-    border: 1px solid #b0bec5;
-}
-
-.sign-up-in-button{
-    color: #455a64;
-    background-color: white;
-    border: none;
-    margin-top: 1.5rem;
-    margin-right: 1.7rem;
-    align-self: flex-end;
-}
-
-.logo{
-    width: 30%;
-    height: 30%;
-    padding-bottom: 2rem;
-}
-
-.error{
-    color: red;
-    font-size: 0.75rem;
-    margin-bottom: .5rem;
-    margin-top: 0;
-}
-
-.logout-button{
     justify-content: flex-end;
-    margin-right: 10rem;
+    width: 46rem;
     margin-top: 2rem;
-    display: flex;
-    width: 100%;
 }
 
 .records-container{
-    width: 100%;
     display: flex;
     flex-direction: column;
     width: 40rem;
     background-color: white;
     border-radius: .25rem;
-    margin-top: 2rem;
+    align-self: center;
+    margin-top: 1em;
     padding: 3rem 3rem 3rem 3rem;
 }
 
 .accordian-spacing{
     display: flex;
-    margin-bottom: .25rem;
+    margin-bottom: .75rem;
 }
 
 .add-workout-button{
-    border-radius: .25rem;
-    background-color: white;
-    border: 1px solid #b0bec5;
     margin-bottom: 1rem;
     width: 10rem;
     height: 2rem;
+}
+
+.add-exercise{
+    margin-bottom: .3rem;
+    width: 8rem;
+    height: 2rem;
+}
+
+.split-div {
+    width: 50%; 
+    display: flex; 
+}
+
+.split-div-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.flex-end {
+    justify-content: flex-end;
+}
+
+.workout-theme {
+    color: #455a64;
+    border-radius: .25rem;
+    background-color: white;
+    border: 1px solid #b0bec5;
+}
+
+.save-remove-button {
+    width: 4rem;
+    margin-left: .25rem;
+    height: 1.75rem;
 }
 
 .add-workout-div{
@@ -138,12 +172,13 @@ input[type=number] {
 .exercise-card-container{
     display: flex;
     padding-left: 1rem;
-    padding-bottom: 1rem;
     flex-direction: column;
+    
 
     .exercise-title-container{
         display: flex;
         width: 100%;
+        height: 1rem;
         padding-bottom: 0.5rem;
 
         .exercise-title{
@@ -158,12 +193,8 @@ input[type=number] {
 
             .edit-button{
                 margin-top: 0.5rem;
-                width: 6rem;
-                height: 2rem;
-            }
-
-            .save-cancel-button{
-
+                width: 4rem;
+                height: 1.75rem;
             }
         }
     }
@@ -176,5 +207,85 @@ input[type=number] {
             display: flex;
             // width: 50%;
         }
+
+        .repset-input-box {
+            width: 5rem;
+            height: 1.4rem;
+            margin-right: 0.5rem;
+
+        }   
     }
+}
+
+.delete-set-button {
+    height: 1.65rem !important;
+    width: 1.75rem !important;
+}
+
+.exercise-title-input {
+    width: 10.85rem;
+    height: 1.5rem;
+}
+
+.add-set-button {
+    height: 1.4rem;
+    width: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.list-item {
+    display: flex;
+    flex-direction: row;
+}
+
+.unorder-list-editing {
+    margin-block-end: 0;
+}
+
+.unorder-list-not-editing {
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.error-modal {
+    display: flex;
+    justify-content: center;
+    width: 99%;
+    height: 3rem;
+    bottom: 1rem;
+    position: fixed; 
+    color: white;
+    background-color: rgb(219, 22, 22);
+    visibility:hidden;
+    animation: fadeInOut 20s;
+}
+
+.error-message-p {
+    margin-block-start: .75rem;
+}
+
+@keyframes fadeInOut {
+    0% {
+        visibility:visible;
+        opacity:0;
+    }
+    10% {
+        visibility:visible;
+        opacity:1;
+    }
+    100% {
+        visibility:visible;
+        opacity:0;
+    }
+}
+
+.status-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 30rem;
+    height: 20rem;
+    background-color: white;
+    border: 2px solid #000;
 }

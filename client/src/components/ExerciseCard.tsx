@@ -43,10 +43,13 @@ const ExerciseCard = (props: any) => {
     setExercise(copy)
   }
 
+  const saveDisabled = (): boolean => {
+    let containsInvalid = exercise.sets.some((repSet: RepSet) => (isNaN(repSet.reps) || isNaN(repSet.weight) || repSet.weight <= 0 || repSet.reps <= 0))
+    
+    return exercise.name === "" || exercise.sets.length === 0 || containsInvalid
+  }
+
   const saveExercise = () => {
-    if(exercise.name === "" || exercise.sets.length === 0 || exercise.sets.some((repSet: RepSet) => (isNaN(repSet.reps) || isNaN(repSet.weight) || repSet.weight === 0 || repSet.reps === 0))){
-      return
-    }
     setEditing(!editing)
     props.handleExerciseUpdate(exercise,props.index, false)
   }
@@ -65,14 +68,19 @@ const ExerciseCard = (props: any) => {
     return(
       <>
         <div className="repset-container">
-            <div className="repset-input">
-                {editing ? <input type="number" value={set.weight} className="repset-input-box" 
-                  onChange={(e) => updateExercise(e,i,"weight")}/>: <p>{set.weight} lbs</p>}
-            </div>
-            <div className="repset-input">
-                {editing ? <><input type="number" value={set.reps} className="repset-input-box" onChange={(e) => updateExercise(e,i,"reps")} />
-                  <button className="repset-input-box" onClick={() => removeSet(i)}>X</button></> : <p> x {set.reps}</p>}
-            </div>
+            <li>
+              <div className="list-item">
+                <div className="repset-input">
+                    {editing ? <input placeholder="Weight (lbs)" type="number" value={set.weight !== 0 ? set.weight: ""} className="repset-input-box workout-theme" 
+                      onChange={(e) => updateExercise(e,i,"weight")}/>: <p>{set.weight} lbs</p>}
+                </div>
+                <div className="repset-input">
+                    {editing ? <><input placeholder="Repetitions" type="number" value={set.reps !== 0 ? set.reps: ""} className="repset-input-box workout-theme" onChange={(e) => updateExercise(e,i,"reps")} />
+                      <button className="repset-input-box delete-set-button workout-theme" onClick={() => removeSet(i)}>X</button></> : <p style={{marginLeft:'.3rem'}}>x {set.reps}</p>}
+                </div>
+              </div>
+                
+            </li>
         </div>
       </>
     )
@@ -105,15 +113,15 @@ const ExerciseCard = (props: any) => {
       <RemoveExerciseModal/>
       <div className="exercise-title-container">
           <div className="exercise-title">
-              {editing ? <input type="text" value={exercise.name} onChange={(e) => updateExercise(e,-1,"name")}/>: <p>{exercise.name}</p>}
+              {editing ? <input placeholder="Exercise Name" className="exercise-title-input workout-theme" type="text" value={exercise.name} onChange={(e) => updateExercise(e,-1,"name")}/>: exercise.name}
           </div>
           <div className="exercise-button-container">
-              {editing ? <><button className="save-remove-button" onClick={saveExercise}>Save</button> <button className="save-remove-button" onClick={showRemoveModal}>Remove</button></>: 
-                <button className="edit-button" onClick={editExercise}>Edit</button>}
+              {editing ? <><button className="save-remove-button workout-theme" disabled={saveDisabled()} onClick={saveExercise}>Save</button> <button className="save-remove-button workout-theme" onClick={showRemoveModal}>Remove</button></>: 
+              <button className="edit-button workout-theme" onClick={editExercise}>Edit</button>}
           </div>
       </div>
-      {exercise.sets.map((set: RepSet, i: number) => generateSet(set,i))}
-      {editing ? <div><button onClick={addSet}>+</button></div>: null}
+      <ul className={editing ? 'unorder-list-editing': 'unorder-list-not-editing'}>{exercise.sets.map((set: RepSet, i: number) => generateSet(set,i))}</ul>
+      {editing ? <div><button className="add-set-button workout-theme" onClick={addSet}>+</button></div>: null}
     </>
   );
 };

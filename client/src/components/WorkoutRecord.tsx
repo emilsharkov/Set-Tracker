@@ -6,20 +6,31 @@ import { getAllWorkouts, getWorkout, addWorkout, editWorkout, deleteWorkout } fr
 import WorkoutDropdown from "./WorkoutDropdown";
 import "./styling/component-styling.scss"
 
-
 const WorkoutRecord = (props: any) => {
   const initialWorkouts: [number,Workout][] = []
   const [workouts, setWorkouts] = useState(initialWorkouts)
   const [userID, setUserID] = useState(-1)
   const [errorMessage, setErrorMessage] = useState("")
   const unregisteredIndex = useRef(-1)
-  const endOfWorkouts = useRef(1)
 
   useEffect(() => {
     if(props.userID !== -1 && props.userID !== undefined){
       setUserID(props.userID) 
     }
   },[props.userID])
+
+  useEffect(() => {
+    // const resetErrorMessage = async () => {
+    //   const timeout = async() => {
+    //     return new Promise(resolve => setTimeout(resolve, 10))
+    //   }
+    //   await timeout()
+    //   setErrorMessage("")
+    // }
+
+    // if(errorMessage === ""){ return }
+    // resetErrorMessage()
+  },[errorMessage])
 
   useEffect(() => {
     const fetchWorkouts = async () => {
@@ -56,9 +67,6 @@ const WorkoutRecord = (props: any) => {
   const updateWorkouts = async (workout: Workout, workoutNum: number, workoutID: number, remove: boolean) => {
     let copy = [...workouts]
     let modifyIndex = workouts.length - workoutNum
-    console.log(workoutID)
-    console.log(modifyIndex)
-    console.log(copy[modifyIndex])
     if(remove){
       copy.splice(modifyIndex,1)
       if(workoutID >= 0){
@@ -72,19 +80,31 @@ const WorkoutRecord = (props: any) => {
     setWorkouts(copy)
   }
 
+  const updateError = (message: string) => {
+    setErrorMessage(message)
+  }
+
+  const ErrorModal = () => {
+    return(
+      <div className="error-modal" >
+        <p className="error-message-p">{errorMessage}</p>
+      </div>
+    )
+  }
+
   return (
     <>
-      <div className="page-container">
-        <div className="logout-button">
-          <button onClick={props.logout}>Logout</button>
+      <div className="page-container-workout">
+        <div className="logout-button-div">
+          <button className= "add-workout-button workout-theme" onClick={props.logout}>Logout</button>
         </div>
         <div className="records-container">
           <div className="title-button-container">
             <div className="title-container">
-              <p>Your Workouts</p>
+              <p style={{color:'#455a64'}}>Your Workouts</p>
             </div>
             <div className="add-workout-div">
-              <button className="add-workout-button" onClick={addWorkoutToList}>
+              <button className="add-workout-button workout-theme" onClick={addWorkoutToList}>
                 Add Workout
               </button>
             </div>
@@ -92,11 +112,16 @@ const WorkoutRecord = (props: any) => {
           {workouts.map((workoutPair,i) => {
             return (
               <div className="accordian-spacing">
-                <WorkoutDropdown workoutPair={workoutPair} updateWorkouts={updateWorkouts} day={workouts.length-i}/>
+                <WorkoutDropdown 
+                  workoutPair={workoutPair} 
+                  updateWorkouts={updateWorkouts} 
+                  day={workouts.length-i}
+                  updateError={updateError}
+                />
               </div>)
           })}
         </div>
-       
+        {errorMessage !== "" ? <ErrorModal/>: null}
       </div>
     </>
   );

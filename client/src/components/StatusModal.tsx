@@ -1,6 +1,8 @@
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { Icon } from '@iconify/react';
+
 const StatusModal = (props: any) => {
     return(
         <>
@@ -9,7 +11,8 @@ const StatusModal = (props: any) => {
                 onClose={props.onClose}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description">
-                <Box>
+                <Box className="status-modal">
+                    <Icon icon="material-symbols:error-circle-rounded-outline" />
                     <Typography id="modal-modal-title" variant="h6" component="h2">
                         {props.modalTitle}
                     </Typography>

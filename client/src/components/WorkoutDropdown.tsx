@@ -14,7 +14,6 @@ import "./styling/component-styling.scss"
 const WorkoutDropdown = (props: any) => {
   const [workout, setWorkout] = useState(new Workout([]))
   const [workoutID, setWorkoutID] = useState(0)
-  const [errorMessage, setErrorMessage] = useState("")
   const [modalOpen, setModalOpen] = useState(false)
   const [editedIndex, setEditedIndex] = useState(-1)
   const [editedExercise, setEditedExercise] = useState(new Exercise("",[]))
@@ -30,8 +29,6 @@ const WorkoutDropdown = (props: any) => {
       return
     } else{
       copy.exercises[editedIndex] = editedExercise
-      console.log(copy)
-      console.log(editedIndex)
     }
     props.updateWorkouts(copy,props.day,workoutID,false)
   }, [editedIndex, editedExercise])
@@ -48,7 +45,6 @@ const WorkoutDropdown = (props: any) => {
     } else{
       setEditedIndex(exerciseNum)
       setEditedExercise(exercise)
-      console.log(exercise)
     }
   }
 
@@ -89,21 +85,29 @@ const WorkoutDropdown = (props: any) => {
 
   return (
     <>
-      <Accordion style={{width: '100%'}}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon/>}>Day {props.day}</AccordionSummary>
-          <AccordionDetails>
+      <Accordion className="workout-theme" style={{width: '100%'}}>
+          <AccordionSummary style={{color:'#455a64'}} expandIcon={<ExpandMoreIcon/>}>
+            Day {props.day}
+          </AccordionSummary>
+          <AccordionDetails style={{color:'#455a64'}}>
             <>
               <DeleteWorkoutModal/>
               {workout.exercises.map((exercise: Exercise, i: number) => {
                 return(
                   <div className="exercise-card-container">
-                    <ExerciseCard editable={isNewSet(exercise)} exercise={exercise} handleExerciseUpdate={handleExerciseUpdate} index={i}/>
+                    <ExerciseCard 
+                      editable={isNewSet(exercise)} 
+                      exercise={exercise} 
+                      handleExerciseUpdate={handleExerciseUpdate} 
+                      index={i}
+                      updateError={props.updateError}
+                    />
                   </div>
                 )
               })}
-              <div>
-                <div><button onClick={addExercise}>Add Exercise</button></div>
-                <div><button onClick={showDeleteModal}>Delete Workout</button></div>
+              <div className="split-div-container">
+                <div className="split-div"><button className="workout-theme add-exercise" onClick={addExercise}>Add Exercise</button></div>
+                <div className="split-div flex-end"><button className="workout-theme add-exercise"onClick={showDeleteModal}>Delete Workout</button></div>
               </div>
             </>
           </AccordionDetails>
