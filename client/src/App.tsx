@@ -6,7 +6,7 @@ import WorkoutRecord from './components/WorkoutRecord';
 
 
 function App() {
-  const [userID, setUserID] = useState(2)
+  const [userID, setUserID] = useState(-1)
   const navigate = useNavigate()
 
   const loginWithUserID = (userID: number) => {

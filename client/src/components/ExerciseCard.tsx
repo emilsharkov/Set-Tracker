@@ -95,12 +95,13 @@ const ExerciseCard = (props: any) => {
         <StatusModal 
           open={modalOpen} 
           onClose={() => setModalOpen(false)} 
-          modalTitle={"Are you sure you want to delete this exercise?"}
-          modalDescription={"You cannot undo this action"}
+          icon={true}
+          modalTitle={"Are you sure?"}
+          modalDescription={"Do you want to delete this exercise? You cannot undo this action."}
           children={
               <>
-                <button onClick={() => setModalOpen(false)}>Keep Working</button>
-                <button onClick={removeExercise}>Delete</button>
+                <button className="keep-working-modal-button" onClick={() => setModalOpen(false)}>Keep Working</button>
+                <button className="delete-exercise-modal-button" onClick={removeExercise}>Delete</button>
               </>
           }/>
       </div>

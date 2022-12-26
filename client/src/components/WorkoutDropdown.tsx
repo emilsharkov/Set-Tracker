@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Workout } from "../Objects/Workout";
 import { Exercise } from "../Objects/Exercise";
 import { RepSet } from "../Objects/RepSet"
@@ -7,6 +7,7 @@ import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { CoachMark, ICoachProps } from "react-coach-mark"
 import ExerciseCard from "./ExerciseCard";
 import StatusModal from "./StatusModal";
 import "./styling/component-styling.scss"
@@ -18,10 +19,19 @@ const WorkoutDropdown = (props: any) => {
   const [editedIndex, setEditedIndex] = useState(-1)
   const [editedExercise, setEditedExercise] = useState(new Exercise("",[]))
 
+  const ref1 = useRef(null);
+  const ref2 = useRef(null);
+  const [rerender, setRerender] = useState(0)
+  const [activatedNumber, setActivateNumber] = useState(0)
+
   useEffect(() => {
     setWorkoutID(props.workoutPair[0])
     setWorkout(props.workoutPair[1])
   }, [props.workoutPair])
+
+  useEffect(() => { /* needed so that ref gets updates value to be passed as prop */
+    setRerender(rerender + 1);
+  }, [ref1.current])
 
   useEffect(() => {
     let copy = new Workout([...workout.exercises])
@@ -65,14 +75,15 @@ const WorkoutDropdown = (props: any) => {
     return(
       <div>
         <StatusModal 
-          open={modalOpen} 
+          open={modalOpen}
+          icon={true}
           onClose={() => setModalOpen(false)} 
-          modalTitle={"Are you sure you want to delete this workout?"}
-          modalDescription={"You cannot undo this action"}
+          modalTitle={"Are you sure?"}
+          modalDescription={"Do you want to delete this workout? You cannot undo this action."}
           children={
               <>
-                <button onClick={() => setModalOpen(false)}>Keep Working</button>
-                <button onClick={deleteWorkout}>Delete</button>
+                <button className="keep-working-modal-button" onClick={() => setModalOpen(false)}>Keep Working</button>
+                <button className="delete-exercise-modal-button" onClick={deleteWorkout}>Delete</button>
               </>
           }/>
       </div>
@@ -93,9 +104,27 @@ const WorkoutDropdown = (props: any) => {
     return disabled
   }
 
+  const currCoach = ():ICoachProps => {
+    const NextButton = <button className="coach-mark-button" onClick={() => setActivateNumber(activatedNumber + 1)}>Got It</button>;
+    const coachList: Array<ICoachProps> = [
+      {
+          activate: activatedNumber === 0,
+          component: <div><div className="coach-mark-message">Try clicking here to log your workout</div>{NextButton} </div>,
+          reference: ref1,
+          tooltip: { position: 'bottom' }
+      },
+    ]
+    const coach = coachList[activatedNumber]
+    return coach
+  }
+
+  const renderCoachMark = (props.day === 1 && workout.exercises.length === 1 && workout.exercises[0].name === ""
+  && workout.exercises[0].sets.length === 1 && workout.exercises[0].sets[0].weight === 0
+    && workout.exercises[0].sets[0].reps === 0)
+
   return (
     <>
-      <Accordion className="workout-theme" style={{width: '100%'}}>
+      <Accordion ref={ref1} className="workout-theme" style={{width: '100%'}}>
           <AccordionSummary style={{color:'#455a64'}} expandIcon={<ExpandMoreIcon/>}>
             Day {props.day}
           </AccordionSummary>
@@ -122,6 +151,7 @@ const WorkoutDropdown = (props: any) => {
             </>
           </AccordionDetails>
       </Accordion>
+      {renderCoachMark ? <CoachMark {...currCoach()}/>: null}
     </>
   );
 };

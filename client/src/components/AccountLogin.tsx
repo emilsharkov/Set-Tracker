@@ -10,8 +10,8 @@ const LoginModal = (props: any) => {
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
   const [username, setUsername] = useState("")
-  const [email, setEmail] = useState("test2")
-  const [password, setPassword] = useState("password")
+  const [email, setEmail] = useState("pp")
+  const [password, setPassword] = useState("pp")
   const [errorMessage, setErrorMessage] = useState("")
   const [displayLogin, setDisplayLogin] = useState(true)
 
