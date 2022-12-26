@@ -38,7 +38,7 @@ Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Tra
 
 Step 3: Open two terminals and navigate to the cloned repository folder
 
-Step 4: Navigate the first terminal into the client folder and run ```npm install```
+Step 4: Navigate the first terminal into the client folder and run ```npm install --legacy-peer-deps```
 
 Step 5: Navigate the second terminal into the server folder and run ```npm install```
 
