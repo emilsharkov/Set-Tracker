@@ -16,11 +16,13 @@ Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Tra
 
 #### Usage
 
-Step 3: Navigate inside the Traka folder, open a terminal, and type ```docker-compose up```
+Step 3: Navigate inside the Traka folder, open a terminal, and type ```docker-compose build```
 
-Step 4: Open a browser and type ```localhost:3000``` into the search bar and the application will be running
+Step 4: Once it is finished building, in the same terminal type ```docker-compose up```
 
-Step 5: To stop the application, open a new terminal and type ```docker-compose down```
+Step 5: To run the application, open a browser and type ```localhost:3000``` into the search bar
+
+Step 6: To stop the application, open a new terminal and type ```docker-compose down```
 
 ### Option 2: Using Node.js and PostgreSQL
 
