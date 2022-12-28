@@ -2,21 +2,24 @@ version: "3.8"
 services:
 
   client:
-    build: ./client
+    build: client
+    image: emosharkov/traka-client
     ports: 
       - "3000:3000"
-    restart: unless-stopped
+    depends_on: 
+      - server
 
   server:
-    build: ./server
+    build: server
+    image: emosharkov/traka-server
     ports:
       - "5000:5000"
     depends_on:
       - database
-    restart: unless-stopped
   
   database:
-    build: ./database
+    build: database
+    image: emosharkov/traka-database
     ports:
       - "4000:4000"
     environment:
@@ -26,7 +29,6 @@ services:
       - PGPORT=4000
     volumes:
       - my-data:/var/lib/postgresql/data
-    restart: unless-stopped
   
 volumes:
     my-data:
