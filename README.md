@@ -16,11 +16,13 @@ Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Tra
 
 #### Usage
 
-Step 3: Navigate inside the Traka folder, open a terminal, and type ```docker-compose up```
+Step 3: Navigate inside the Traka folder, open a terminal, and type ```docker-compose build```
 
-Step 4: Open a browser and type ```localhost:3000``` into the search bar and the application will be running
+Step 4: Once it is finished building, in the same terminal type ```docker-compose up```
 
-Step 5: To stop the application, open a new terminal and type ```docker-compose down```
+Step 5: To run the application, open a browser and type ```localhost:3000``` into the search bar
+
+Step 6: To stop the application, open a new terminal and type ```docker-compose down```
 
 ### Option 2: Using Node.js and PostgreSQL
 
@@ -36,17 +38,17 @@ Step 2: Open a terminal and type ```git clone https://github.com/emilsharkov/Tra
 
 Step 3: Open two terminals and navigate to the cloned repository folder
 
-Step 4: Navigate the first terminal into the client folder and run ```npm install```
+Step 4: Navigate the first terminal into the client folder and run ```npm install --legacy-peer-deps```
 
 Step 5: Navigate the second terminal into the server folder and run ```npm install```
 
 Step 6: Open another terminal and run ```psql -U postgres``` and login
 
-Step 7: Execute the first command in ```./server/database/db_create.sql```
+Step 7: Execute the first command in ```./server/database/db_create.sql``` to create the database
 
 Step 8: Navigate into the database by typing ```\c set_tracker```
 
-Step 9: Execute the last two commands in ```./server/database/db_create.sql``` one by one
+Step 9: Execute the last two commands in ```./server/database/db_create.sql``` one by one to create the tables
 
 Step 10: Navigate to ./server/database/database.js and change the file to 
 ```
