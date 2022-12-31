@@ -1,3 +1,4 @@
+# aws ecs configuration
 version: "3.8"
 services:
 
@@ -5,7 +6,7 @@ services:
     build: client
     image: emosharkov/traka-client
     ports: 
-      - "3000:3000"
+      - 80:80
     depends_on: 
       - server
 
@@ -13,7 +14,7 @@ services:
     build: server
     image: emosharkov/traka-server
     ports:
-      - "5000:5000"
+      - 5000:5000
     depends_on:
       - database
   
@@ -21,7 +22,7 @@ services:
     build: database
     image: emosharkov/traka-database
     ports:
-      - "4000:4000"
+      - 4000:4000
     environment:
       - POSTGRES_USER=docker
       - POSTGRES_PASSWORD=docker
@@ -29,6 +30,6 @@ services:
       - PGPORT=4000
     volumes:
       - my-data:/var/lib/postgresql/data
-  
+
 volumes:
     my-data:

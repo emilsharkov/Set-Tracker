@@ -1,8 +1,9 @@
 import { Workout } from "../Objects/Workout"
+const host = process.env.NODE_ENV === 'development' ? 'http://localhost': 'http://' + window.location.host;
 
 async function getAllWorkouts(userID: number): Promise<{data: string} | undefined> {    
     try {
-        const response = await fetch("http://localhost:5000/workout/" + userID, {
+        const response = await fetch(host + ":5000/workout/" + userID, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -18,7 +19,7 @@ async function getAllWorkouts(userID: number): Promise<{data: string} | undefine
 
 async function getWorkout(userID: number, workoutID: number): Promise<{data: string} | undefined> {
     try {
-        const response = await fetch("http://localhost:5000/workout/" + userID + "/" + workoutID, {
+        const response = await fetch(host + ":5000/workout/" + userID + "/" + workoutID, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -35,7 +36,7 @@ async function getWorkout(userID: number, workoutID: number): Promise<{data: str
 async function addWorkout(userID: number, newWorkout: Workout): Promise<{data: string} | undefined> {
     
     try {
-        const response = await fetch("http://localhost:5000/workout/" + userID, {
+        const response = await fetch(host + ":5000/workout/" + userID, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify( {newWorkout} ) 
@@ -52,7 +53,7 @@ async function addWorkout(userID: number, newWorkout: Workout): Promise<{data: s
 
 async function editWorkout(userID: number, workoutID: number, updatedWorkout: Workout): Promise<{data: string} | undefined> {
     try {
-        const response = await fetch("http://localhost:5000/workout/" + userID + "/" + workoutID, {
+        const response = await fetch(host + ":5000/workout/" + userID + "/" + workoutID, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify( {updatedWorkout} ) 
@@ -69,7 +70,7 @@ async function editWorkout(userID: number, workoutID: number, updatedWorkout: Wo
 
 async function deleteWorkout(userID: number, workoutID: number): Promise<{data: string} | undefined> {
     try {
-        const response = await fetch("http://localhost:5000/workout/" + userID + "/" + workoutID, {
+        const response = await fetch(host + ":5000/workout/" + userID + "/" + workoutID, {
           method: "DELETE",
           headers: { "Content-Type": "application/json" },
         });

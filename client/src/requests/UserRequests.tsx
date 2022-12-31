@@ -1,9 +1,10 @@
 import { Login } from "../Objects/Login"
 import { User } from "../Objects/User"
+const host = process.env.NODE_ENV === 'development' ? 'http://localhost': 'http://' + window.location.host;
 
 async function login(login: Login): Promise<{data: string} | undefined> {
     try {
-        const response = await fetch("http://localhost:5000/user/" + encodeURIComponent(JSON.stringify(login)), {
+        const response = await fetch(host + ":5000/user/" + encodeURIComponent(JSON.stringify(login)), {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         });
@@ -19,7 +20,7 @@ async function login(login: Login): Promise<{data: string} | undefined> {
 
 async function createAccount(newUser: User): Promise<{data: string} | undefined> {
   try {
-      const response = await fetch("http://localhost:5000/user/", {
+      const response = await fetch(host + ":5000/user/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {newUser} ) 
@@ -36,7 +37,7 @@ async function createAccount(newUser: User): Promise<{data: string} | undefined>
 
 async function updateAccount(userID: number, updatedUser: User): Promise<{data: string} | undefined> {
   try {
-      const response = await fetch("http://localhost:5000/user/" + userID, {
+      const response = await fetch(host + ":5000/user/" + userID, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify( {updatedUser} ) 
@@ -53,7 +54,7 @@ async function updateAccount(userID: number, updatedUser: User): Promise<{data: 
 
 async function deleteAccount(userID: number): Promise<{data: string} | undefined>{ 
   try {
-      const response = await fetch("http://localhost:5000/user/" + userID, {
+      const response = await fetch(host + ":5000/user/" + userID, {
         method: "DELETE",
         headers: { "Content-Type": "application/json" },
       });

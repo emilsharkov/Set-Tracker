@@ -100,7 +100,6 @@ const WorkoutDropdown = (props: any) => {
       disabled = disabled || exercise.name === "" || exercise.sets.length === 0 
         || exercise.sets.some((repSet: RepSet) => (isNaN(repSet.reps) || isNaN(repSet.weight) || repSet.weight <= 0 || repSet.reps <= 0))
     })
-    console.log(disabled)
     return disabled
   }
 

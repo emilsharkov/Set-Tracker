@@ -52,7 +52,6 @@ const WorkoutRecord = (props: any) => {
         dbWorkouts!.push([databaseEntry.workout_id,dbWorkout])
       });
 
-      console.log(dbWorkouts.length)
       setWorkouts(sortList(dbWorkouts))
     }
     fetchWorkouts()
