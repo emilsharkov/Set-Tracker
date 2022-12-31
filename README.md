@@ -20,7 +20,7 @@ Step 3: Navigate inside the Traka folder, open a terminal, and type ```docker-co
 
 Step 4: Once it is finished building, in the same terminal type ```docker-compose up```
 
-Step 5: To run the application, open a browser and type ```localhost:3000``` into the search bar
+Step 5: To run the application, open a browser and type ```localhost``` into the search bar
 
 Step 6: To stop the application, open a new terminal and type ```docker-compose down```
 
