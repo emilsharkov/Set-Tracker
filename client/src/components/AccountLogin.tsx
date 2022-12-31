@@ -16,7 +16,7 @@ const LoginModal = (props: any) => {
   const [displayLogin, setDisplayLogin] = useState(true)
 
   async function handleAccountCreation() {
-    if (firstName && lastName && username && email && password) {
+    if (firstName && lastName && username && email && password && validateEmail(email)) {
       const promise = await createAccount(new User(firstName, lastName, email, username, password))
       let user = JSON.parse(promise!.data)
 
@@ -25,7 +25,9 @@ const LoginModal = (props: any) => {
       } else {
         props.loginWithUserID(user.user_id)
       }
-    } else {
+    } else if(!validateEmail(email)){
+      setErrorMessage("Please Enter a Valid Email")
+    }else {
       setErrorMessage("Fill All Fields")
     }
   }
@@ -41,8 +43,16 @@ const LoginModal = (props: any) => {
         props.loginWithUserID(user.user_id)
       }
     } else {
-      setErrorMessage("Enter Login")
+      setErrorMessage("Fill All Fields")
     }
+  }
+
+  const validateEmail = (email: string) => {
+    return String(email)
+      .toLowerCase()
+      .match(
+        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      )
   }
 
   function handleInput(name: string, e: React.ChangeEvent<HTMLInputElement>): void {
