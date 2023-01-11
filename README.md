@@ -2,6 +2,10 @@
 
 Traka is full stack PERN web application made to record workout data for bodybuilders. It uses Node.js as a runtime environment, React.js written in TypeScript for the front-end, Express.js on the server-side, and PostgreSQL as a database. Additionally, Traka is containerized for scalability using Docker and deployed to AWS ECS for hosting.
 
+## You can access Traka online at:
+
+http://trakaworkouts.com
+
 ## How to Run Traka on Your Machine:
 
 ### Option 1: Using Docker
@@ -20,7 +24,7 @@ Step 3: Navigate inside the Traka folder, open a terminal, and type ```docker-co
 
 Step 4: Once it is finished building, in the same terminal type ```docker-compose up```
 
-Step 5: To run the application, open a browser and type ```localhost:3000``` into the search bar
+Step 5: To run the application, open a browser and type ```localhost``` into the search bar
 
 Step 6: To stop the application, open a new terminal and type ```docker-compose down```
 
