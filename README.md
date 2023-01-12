@@ -1,12 +1,16 @@
 # Traka
 
+## Demo
+
+![](https://github.com/emilsharkov/Traka/blob/main/TrakaDemo.gif)
+
+## Overview
+
 Traka is full stack PERN web application made to record workout data for bodybuilders. It uses Node.js as a runtime environment, React.js written in TypeScript for the front-end, Express.js on the server-side, and PostgreSQL as a database. Additionally, Traka is containerized for scalability using Docker and deployed to AWS ECS for hosting.
 
 ## You can access Traka online at:
 
 http://trakaworkouts.com
-
-![](https://github.com/emilsharkov/Traka/blob/main/TrakaDemo.gif)
 
 ## How to Run Traka on Your Machine:
 
