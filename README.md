@@ -60,7 +60,7 @@ Step 8: Navigate into the database by typing ```\c set_tracker```
 
 Step 9: Execute the last two commands in ```./server/database/db_create.sql``` one by one to create the tables
 
-Step 10: Navigate to ./server/database/database.js and change the file to 
+Step 10: Navigate to ```./server/database/database.js``` and change the file to 
 ```
 const Pool = require('pg').Pool
 
