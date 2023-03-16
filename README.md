@@ -10,7 +10,7 @@ Traka is full stack PERN web application made to record workout data for bodybui
 
 ## You can access Traka online at:
 
-http://trakaworkouts.com
+http://trakaworkouts.com (Link is Deprecated Due to AWS Costs :))
 
 ## How to Run Traka on Your Machine:
 
